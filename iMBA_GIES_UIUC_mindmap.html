@@ -74,6 +74,9 @@
   .tab.all { border-color: #c040a0; color: #e080d0; background: rgba(192,64,160,0.08); }
   .tab.all.active, .tab.all:hover { background: #c040a0; color: #fff; box-shadow: 0 0 20px rgba(192,64,160,0.4); }
 
+  .tab.portal { border-color: #10b981; color: #10b981; background: rgba(16,185,129,0.08); }
+  .tab.portal.active, .tab.portal:hover { background: #10b981; color: #fff; box-shadow: 0 0 20px rgba(16,185,129,0.4); }
+
   .mindmap-container {
     padding: 20px;
     max-width: 1200px;
@@ -110,6 +113,14 @@
 
   .section-card.zoom-card { background: rgba(45,140,255,0.07); border: 1px solid rgba(45,140,255,0.2); }
   .section-card.zoom-card::before { background: linear-gradient(90deg, #2d8cff, #7cb8ff); }
+
+  .section-card.portal-card { background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2); }
+  .section-card.portal-card::before { background: linear-gradient(90deg, #10b981, #6ee7b7); }
+  .portal-card .section-icon { background: rgba(16,185,129,0.2); }
+  .portal-card .section-title-group h2 { color: #34d399; }
+  .portal-card .when-banner { background: rgba(16,185,129,0.12); border-left: 3px solid #10b981; color: #6ee7b7; }
+  .portal-card .node-card:hover, .portal-card .node-card.expanded { border-color: rgba(16,185,129,0.5); box-shadow: 0 4px 20px rgba(16,185,129,0.1); }
+  .portal-card .detail-item::before { color: #10b981; }
 
   .section-header {
     display: flex;
@@ -324,6 +335,7 @@
   <button class="tab canvas" onclick="filterSection('canvas', event)">📚 Canvas</button>
   <button class="tab coursera" onclick="filterSection('coursera', event)">🎓 Coursera</button>
   <button class="tab zoom" onclick="filterSection('zoom', event)">📹 Zoom</button>
+  <button class="tab portal" onclick="filterSection('portal', event)">🏫 Student Portal</button>
 </div>
 
 <div class="mindmap-container">
@@ -664,12 +676,168 @@
     </div>
   </div>
 
+  <!-- ========== STUDENT PORTAL ========== -->
+  <div class="section-card portal-card" id="section-portal" style="animation-delay:0.35s">
+    <div class="section-header open" onclick="toggleSection(this)">
+      <div class="section-icon">🏫</div>
+      <div class="section-title-group">
+        <h2>Student Portal — Administrative Command Center</h2>
+        <p>my.illinois.edu / Banner Self-Service · Registration & Finance</p>
+      </div>
+      <span class="toggle-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="when-banner">
+        <strong>When to use the Student Portal:</strong> At the start of every semester for registration, before every payment deadline for tuition, and whenever you need official academic records, financial aid status, or university services. The portal is your administrative backbone — separate from Canvas, Coursera, and Zoom, which are academic delivery tools.
+      </div>
+      <div class="nodes-grid">
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">📅</div><div class="node-title">Course Registration</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge primary">Every Semester</span>
+            <div class="detail-item">Log in to Student Self-Service (Banner) via my.illinois.edu to register for iMBA courses each term</div>
+            <div class="detail-item">Check your enrollment appointment time — iMBA students have a designated registration window</div>
+            <div class="detail-item">Search courses by subject "MBA" or section number provided by Gies iMBA advising team</div>
+            <div class="detail-item">Add courses to your "Preferred Sections" list before your appointment opens to act fast when registration begins</div>
+            <div class="detail-item">Some iMBA courses require instructor or advisor approval — submit consent requests early</div>
+            <div class="detail-item">Verify credit hours and section numbers carefully — online sections are labeled differently from on-campus</div>
+            <div class="detail-item">Drop/add deadlines are strict — missing them results in "W" (Withdrawal) on your transcript</div>
+            <div class="detail-item">Contact iMBA advising (imba@illinois.edu) if you encounter registration holds or course conflicts</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">💳</div><div class="node-title">Tuition & Fee Payment</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge warning">Bill Due Each Semester</span>
+            <div class="detail-item">View your tuition bill in the Student Account Center (linked from my.illinois.edu)</div>
+            <div class="detail-item">iMBA tuition is charged per credit hour — confirm your enrolled hours match your expected bill</div>
+            <div class="detail-item">Payment methods: eCheck (ACH), credit/debit card (processing fee applies), or wire transfer for international students</div>
+            <div class="detail-item">Enroll in a payment plan if needed — UIUC offers installment options each semester</div>
+            <div class="detail-item">Late payments incur a $50–$200 late fee — calendar your due date immediately after billing opens</div>
+            <div class="detail-item">Employer tuition reimbursement: request a deferment letter from the Bursar's office if your company pays after grades are posted</div>
+            <div class="detail-item">International students: use Flywire or the university's designated wire transfer portal to avoid bank fees</div>
+            <div class="detail-item">Check for any "holds" on your account — unpaid balances block future registration and transcript requests</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">🎓</div><div class="node-title">Financial Aid & Scholarships</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge secondary">Check Every Term</span>
+            <div class="detail-item">View financial aid awards, loans, and scholarships in the Student Self-Service portal under "Financial Aid"</div>
+            <div class="detail-item">Accept or decline loan offers each semester — aid does not auto-apply without your acceptance</div>
+            <div class="detail-item">Check Satisfactory Academic Progress (SAP) requirements — falling below GPA thresholds can jeopardize aid eligibility</div>
+            <div class="detail-item">iMBA-specific scholarships may be administered through the Gies Graduate Programs Office — check their website separately</div>
+            <div class="detail-item">Submit FAFSA annually (for US students) by priority deadlines — typically October 1 for the following academic year</div>
+            <div class="detail-item">Tax documents (1098-T) for tuition deductions are available in the portal each January</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">📄</div><div class="node-title">Transcripts & Enrollment Verification</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge primary">Official Records</span>
+            <div class="detail-item">Request official transcripts through the National Student Clearinghouse or directly via my.illinois.edu</div>
+            <div class="detail-item">Unofficial transcripts are free and instant via Student Self-Service — use for personal tracking only</div>
+            <div class="detail-item">Enrollment verification letters (for employers, visa purposes, loan deferments) are available via the Clearinghouse</div>
+            <div class="detail-item">Official transcripts take 3–7 business days — plan ahead for job applications and scholarship submissions</div>
+            <div class="detail-item">Degree verification for post-graduation: UIUC uses the National Student Clearinghouse as the authorized verifier</div>
+            <div class="detail-item">Grade changes or late grade postings may delay transcript accuracy — wait 2 weeks after semester end before ordering</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">🪪</div><div class="node-title">NetID, i-Card & Account Access</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge warning">Set Up Day 1</span>
+            <div class="detail-item">Your NetID (e.g., jsmith5) is your master university login — used for Canvas, email, library, VPN, and the portal</div>
+            <div class="detail-item">Activate your NetID and set up 2-Factor Authentication (2FA) via Duo Mobile before orientation</div>
+            <div class="detail-item">Your @illinois.edu email is provisioned automatically — check it daily as all official university communications go here</div>
+            <div class="detail-item">i-Card is your university ID — iMBA online students can request a virtual i-Card for library and software access</div>
+            <div class="detail-item">Reset NetID password at identity.uillinois.edu — do not wait until locked out during an exam period</div>
+            <div class="detail-item">Access Microsoft 365 (Word, Excel, Teams) for free through your Illinois account at office365.illinois.edu</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">📚</div><div class="node-title">Library & Research Access</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge secondary">Free & Powerful</span>
+            <div class="detail-item">Access the University of Illinois Library (library.illinois.edu) with your NetID — one of the largest academic libraries in the US</div>
+            <div class="detail-item">Business databases available: Bloomberg, IBISWorld, Mergent, Statista, EBSCO Business Source Complete</div>
+            <div class="detail-item">Use the library's VPN (Cisco AnyConnect) when off-campus to unlock full database access</div>
+            <div class="detail-item">Illinois researchers have access to HBR, WSJ, and FT digital editions at no cost via library subscriptions</div>
+            <div class="detail-item">Interlibrary Loan (ILL): request any article or book not in the collection — typically delivered in 24–72 hours</div>
+            <div class="detail-item">Librarians offer 1:1 research consultations — especially useful for capstone projects and literature reviews</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">🧭</div><div class="node-title">Academic Advising & Degree Audit</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge primary">Track Your Progress</span>
+            <div class="detail-item">Use the Degree Audit tool (DARS / DegreeWorks) in the portal to track which requirements you've completed</div>
+            <div class="detail-item">Schedule a semester check-in with your iMBA academic advisor before registration each term</div>
+            <div class="detail-item">Confirm your degree concentration courses are correctly mapped — electives don't always auto-populate</div>
+            <div class="detail-item">Apply for graduation through the portal at least one semester before your expected completion date</div>
+            <div class="detail-item">Petition for course substitutions or waivers through the advising office — not self-service</div>
+            <div class="detail-item">iMBA advisors also help with questions on course sequencing, transfer credit, and program milestones</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">🌐</div><div class="node-title">International Student Services</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge secondary">Non-US Students</span>
+            <div class="detail-item">ISSS (International Student and Scholar Services) manages visa letters, I-20s, and immigration-related documents</div>
+            <div class="detail-item">iMBA is a fully online program — international students outside the US typically do not require an F-1 visa</div>
+            <div class="detail-item">If attending any on-campus residency or event, contact ISSS for guidance on entry requirements and documentation</div>
+            <div class="detail-item">Tax filing for international students: UIUC provides Glacier Tax Prep software access via the portal</div>
+            <div class="detail-item">Currency and payment: use Flywire for international tuition payments to avoid SWIFT wire fees</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">🏥</div><div class="node-title">Health Insurance & Wellness</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge secondary">Optional Enrollment</span>
+            <div class="detail-item">iMBA students may be eligible to enroll in the Student Health Insurance Plan (SHIP) — check the portal each semester</div>
+            <div class="detail-item">Waive SHIP if you have comparable private coverage — waiver deadline is typically within the first 2 weeks of the semester</div>
+            <div class="detail-item">Counseling Center (counselingcenter.illinois.edu) offers free teletherapy sessions to enrolled students</div>
+            <div class="detail-item">McKinley Health Center offers telehealth appointments for enrolled iMBA students regardless of location</div>
+            <div class="detail-item">Student Assistance Center (SAC) helps with personal emergencies, medical withdrawals, and crisis support</div>
+          </div>
+        </div>
+
+        <div class="node-card" onclick="toggleNode(this)">
+          <div class="node-header"><div class="node-emoji">💼</div><div class="node-title">Career Services & Alumni Network</div><span class="node-expand">▶</span></div>
+          <div class="node-details">
+            <span class="badge primary">Gies Career Hub</span>
+            <div class="detail-item">Access Gies Career Services through the portal — includes resume reviews, mock interviews, and career coaching</div>
+            <div class="detail-item">Handshake (joinhandshake.com) is linked from the portal — use it to search for full-time and internship roles</div>
+            <div class="detail-item">iMBA students have access to the Illinois Alumni Network (illinoisalumni.org) upon enrollment — not just at graduation</div>
+            <div class="detail-item">LinkedIn Learning is available for free via your NetID — use it to earn certifications relevant to your concentration</div>
+            <div class="detail-item">Gies hosts virtual career fairs and company info sessions — check the Events calendar in the portal each semester</div>
+            <div class="detail-item">Register for the Gies iMBA Slack workspace — an informal but active channel for job leads, peer referrals, and networking</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="pro-tip">
+        <strong>⚡ Portal Pro Tip:</strong> Bookmark my.illinois.edu and set a calendar reminder 30 days before each semester's tuition due date and 2 weeks before registration opens. Many iMBA students miss key deadlines simply because the portal feels "administrative" — but a late payment hold can block you from registering for your next semester's courses.
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="legend">
   <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> Canvas</div>
   <div class="legend-item"><div class="legend-dot" style="background:#0056d2"></div> Coursera</div>
   <div class="legend-item"><div class="legend-dot" style="background:#2d8cff"></div> Zoom</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div> Student Portal</div>
   <div class="legend-item" style="font-style:italic">Click any node card to expand details</div>
 </div>
 
@@ -688,7 +856,7 @@
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     event.target.classList.add('active');
 
-    const sections = { canvas: 'section-canvas', coursera: 'section-coursera', zoom: 'section-zoom' };
+    const sections = { canvas: 'section-canvas', coursera: 'section-coursera', zoom: 'section-zoom', portal: 'section-portal' };
 
     if (type === 'all') {
       Object.values(sections).forEach(id => { document.getElementById(id).classList.remove('hidden'); });
